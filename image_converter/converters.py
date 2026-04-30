@@ -1,3 +1,4 @@
+from os.path import exists
 from PIL import Image
 from pathlib import Path
 
@@ -16,6 +17,7 @@ def convert_file(
         output_dir (optional): Destination directory where output file will be stored
     Returns:
         str: Path to the output file
+        dict: Operation status
     """
     if not validate_file(file_path, SUPPORTED_FORMATS):
         return {"status": "invalid", "file": str(file_path)}
@@ -36,19 +38,27 @@ def convert_file(
 
 
 def convert_folder_content(
-    *, folder_path: Path, quality: int, output_format: str, output_dir: Path
+        *, folder_path: Path, quality: int, output_format: str, output_dir: Path, recursive: bool = False
 ):
     """Converts image files within a folder.
     Args:
         folder_path: Path of the folder the content of which should be converted.
         quality: Compression quality inputted by user, if no input then depends on the output file format
     """
-    for file in folder_path.iterdir():
-        if file.is_file():
-            status = convert_file(
+    
+    files = folder_path.rglob("*") if recursive else folder_path.iterdir()
+    for file in files: 
+        if not file.is_file():
+            continue
+
+        relative_path = file.relative_to(folder_path)
+        target_dir = output_dir / relative_path.parent
+        target_dir.mkdir(parents=True, exist_ok=True)
+
+        status = convert_file(
                 file_path=file,
                 output_format=output_format,
                 quality=quality,
-                output_dir=output_dir,
+                output_dir=target_dir,
             )
-            print(f"STATUS: {status['status']}, FILE: {status['file']}")
+        print(f"STATUS: {status['status']}, FILE: {status['file']}")

@@ -4,18 +4,22 @@ FORMATS = {
     "jpeg": {
         "encoder": encode_jpeg,
         "quality": 75,
+        "quality_range": range(0,100)
     },
     "avif": {
         "encoder": encode_avif,
         "quality": 85,
+        "quality_range": range(0,63),
     },
     "webp": {
         "encoder": encode_webp,
         "quality": 80,
+        "quality_range": range(0,100),
     },
     "png": {
         "encoder": encode_png,
         "quality": 75,
+        "quality_range": range(0,9)
     },
 }
 
