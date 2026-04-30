@@ -7,5 +7,7 @@ __pycache__/
 *.pyc
 *.egg-info/
 .venv/
-# your cache file (if you added one)
+build/
+
+# cache file 
 .image-converter-cache.json
