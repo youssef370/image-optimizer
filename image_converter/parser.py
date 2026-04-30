@@ -1,5 +1,6 @@
 from argparse import ArgumentParser
 
+from image_converter import __version__
 from .globals import SUPPORTED_FORMATS
 
 parser = ArgumentParser()
@@ -19,3 +20,5 @@ parser.add_argument("--output", "-o", type=str, help="Destination folder for the
 parser.add_argument("--recursive", "-r", action="store_true", help="Apply conversion to image files in subdirectories and recreate folder structure in output directory")
 
 parser.add_argument("--no-cache", "-nc", action="store_true", help="Ignore cache and convert all files")
+
+parser.add_argument("--version", "-v", action="version", version=__version__) 

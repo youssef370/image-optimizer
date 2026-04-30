@@ -28,7 +28,7 @@ def encode_webp(img: Image, quality: int, output_dir: Path):
     """
     name = Path(img.filename).stem if img.filename else "output"
     output = output_dir / f"{name}.webp"
-    img.save(output, format="WEBP", quality=quality, method=6)
+    img.convert("RGB").save(output, format="WEBP", quality=quality, method=6)
 
     return output
 
@@ -44,7 +44,7 @@ def encode_jpeg(img: Image, quality: int, output_dir: Path):
     """
     name = Path(img.filename).stem if img.filename else "output"
     output = output_dir / f"{name}.jpeg"
-    img.save(
+    img.convert("RGB").save(
         output,
         format="JPEG",
         quality=quality,

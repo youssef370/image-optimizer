@@ -1,5 +1,7 @@
 from pathlib import Path
 
+from image_converter.utils import get_file_extension
+
 
 def validate_file(file_path: Path, supported_formats):
     """Checks if input file is one of the supported types
@@ -9,7 +11,7 @@ def validate_file(file_path: Path, supported_formats):
         bool: true if the file is supported, otherwise false
     """
 
-    ext = file_path.suffix.lstrip(".").lower()
+    ext = get_file_extension(file_path)
     if ext not in supported_formats:
         print(
             f"File type not supported. Should be in one of the following formats: {', '.join(supported_formats)}"
