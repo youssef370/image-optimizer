@@ -1,6 +1,6 @@
 from pathlib import Path
 
-from image_converter.utils import get_file_extension
+from .utils import get_file_extension
 
 
 def validate_file(file_path: Path, supported_formats):

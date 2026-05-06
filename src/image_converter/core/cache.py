@@ -5,16 +5,11 @@ from dataclasses import dataclass, field
 
 @dataclass
 class CacheEntry:
+    key: str
     input_file: Path
     output_file: Path
     output_format: str
     quality: int
-    key: str = field(init=False)
-
-    def __post_init__(self):
-        self.key = compute_hash_key(
-            Path(self.input_file), self.output_format, self.quality
-        )
 
     def to_dict(self):
         return {
@@ -38,9 +33,9 @@ class Cache:
 
         else:
             self.data = {}
-            self._save()
+            self.save()
 
-    def _save(self):
+    def save(self):
         with open(self.path, "w") as f:
             json.dump(self.data, f, indent=2)
 
@@ -50,7 +45,6 @@ class Cache:
     def add(self, entry: CacheEntry):
         if not self.lookup(entry.key):
             self.data[entry.key] = entry.to_dict()
-            self._save()
             return entry
         else:
             return {

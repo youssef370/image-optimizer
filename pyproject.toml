@@ -10,3 +10,6 @@ dependencies = ["Pillow"]
 
 [project.scripts]
 image-converter = "image_converter.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]

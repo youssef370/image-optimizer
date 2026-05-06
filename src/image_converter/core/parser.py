@@ -1,6 +1,6 @@
 from argparse import ArgumentParser
 
-from image_converter import __version__
+from . import __version__
 from .globals import SUPPORTED_FORMATS
 
 parser = ArgumentParser()
@@ -22,3 +22,5 @@ parser.add_argument("--recursive", "-r", action="store_true", help="Apply conver
 parser.add_argument("--no-cache", "-nc", action="store_true", help="Ignore cache and convert all files")
 
 parser.add_argument("--version", "-v", action="version", version=__version__) 
+
+parser.add_argument("--parallel", "-p", action="store_true")
